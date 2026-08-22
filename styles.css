@@ -1,0 +1,18 @@
+:root { color-scheme: dark; --bg:#000; --fg:#f4f3ef; --muted:rgba(244,243,239,.46); }
+* { box-sizing:border-box; }
+html,body { width:100%; height:100%; margin:0; background:#000; overflow:hidden; }
+body { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+#stage { position:fixed; inset:0; background:#000; overflow:hidden; isolation:isolate; }
+#gl { position:absolute; inset:0; width:100%; height:100%; display:block; background:#000; touch-action:none; }
+#loading { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); display:flex; gap:10px; align-items:center; color:rgba(255,255,255,.46); font-size:10px; letter-spacing:.24em; transition:opacity .5s ease; pointer-events:none; }
+#loading.ready { opacity:0; }
+.loading-mark { width:6px; height:6px; border:1px solid rgba(196,153,91,.8); border-radius:50%; box-shadow:0 0 16px rgba(196,153,91,.35); animation:pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity:.35; transform:scale(.7); } }
+#skip { position:absolute; z-index:4; right:max(22px,env(safe-area-inset-right)); bottom:max(20px,env(safe-area-inset-bottom)); width:120px; height:48px; border:0; padding:0; background:transparent; color:rgba(255,255,255,.38); font-size:10px; letter-spacing:.18em; cursor:pointer; transition:color .2s ease; }
+#skip:hover,#skip:focus-visible { color:rgba(255,255,255,.85); outline:none; }
+#hint { position:absolute; z-index:3; left:max(24px,env(safe-area-inset-left)); bottom:max(30px,env(safe-area-inset-bottom)); color:rgba(255,255,255,.19); font-size:9px; letter-spacing:.22em; pointer-events:none; opacity:0; transition:opacity 1s ease; }
+#hint.visible { opacity:1; }
+#fallback { position:absolute; inset:0; display:grid; place-items:center; color:#ddd; font-size:14px; letter-spacing:.08em; }
+.sr-only { position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+@media (max-width:700px) { #skip { right:12px; bottom:12px; } #hint { left:18px; bottom:24px; } }
+@media (prefers-reduced-motion: reduce) { #loading .loading-mark { animation:none; } }
