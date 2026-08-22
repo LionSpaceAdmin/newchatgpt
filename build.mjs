@@ -52,10 +52,10 @@ fs.writeFileSync(path.join(OUT,'data','lion.pcbin.gz'),gz);
 
 const appGz=Buffer.from(fs.readFileSync(path.join(ROOT,'data','app.b64'),'utf8').trim(),'base64');
 let app=zlib.gunzipSync(appGz).toString('utf8');
-const embedded="const b64=window.__LION_PC_B64; if(!b64) throw new Error('point cloud payload missing'); const bin=Uint8Array.from(atob(b64),c=>c.charCodeAt(0)); const stream=new Blob([bin]).stream().pipeThrough(new DecompressionStream('gzip')); const cloud=await new Response(stream).arrayBuffer();";
-const fetched="const r=await fetch('/data/lion.pcbin.gz',{cache:'force-cache'}); if(!r.ok) throw new Error('point cloud '+r.status); if(typeof DecompressionStream!=='function') throw new Error('DecompressionStream unavailable'); const cloud=await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();";
-if(!app.includes(embedded)) throw new Error('runtime patch target not found');
-app=app.replace(embedded,fetched);
+const loader=/async function loadLion\(\)\{[\s\S]*?const bytes=/;
+const replacement="async function loadLion(){\n  const r=await fetch('/data/lion.pcbin.gz',{cache:'force-cache'}); if(!r.ok) throw new Error('point cloud '+r.status); if(typeof DecompressionStream!=='function') throw new Error('DecompressionStream unavailable'); const cloud=await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();\n  const bytes=";
+if(!loader.test(app)) throw new Error('runtime loadLion patch target not found');
+app=app.replace(loader,replacement);
 fs.writeFileSync(path.join(OUT,'app.js'),app);
 
 let html=fs.readFileSync(path.join(ROOT,'index.html'),'utf8');
