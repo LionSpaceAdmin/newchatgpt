@@ -1,0 +1,13 @@
+html,body{margin:0;width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
+body{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+#stage{position:fixed;inset:0;background:#000;overflow:hidden}
+#gl{display:block;width:100%;height:100%;touch-action:none}
+#loading{position:absolute;left:50%;bottom:max(28px,env(safe-area-inset-bottom));transform:translateX(-50%);font-size:10px;letter-spacing:.3em;color:rgba(236,205,144,.55);pointer-events:none;transition:opacity .25s linear;white-space:nowrap}
+#loading.hidden{opacity:0}
+#skipHit{position:absolute;top:max(14px,env(safe-area-inset-top));right:max(14px,env(safe-area-inset-right));width:120px;height:48px;border:0;padding:0;background:transparent;color:transparent;cursor:pointer}
+#skipHit:focus-visible{outline:1px solid rgba(232,192,112,.8);outline-offset:2px}
+#fallback{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:28px;background:#000;color:#eee}
+#fallback[hidden]{display:none}
+#fallback h1{font-family:Georgia,serif;letter-spacing:.08em;font-weight:500}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+@media (max-height:520px){#loading{display:none}}
