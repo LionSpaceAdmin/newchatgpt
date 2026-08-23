@@ -1,1 +1,19 @@
-{"cleanUrls":false,"trailingSlash":false,"headers":[{"source":"/enhance.js","headers":[{"key":"Cache-Control","value":"public, max-age=0, must-revalidate"}]}]}
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "installCommand": "",
+  "buildCommand": "rm -rf dist && mkdir -p dist/data && cp index.html styles.css app.js enhance.js dist/ && cp data/rseed.*.js dist/data/",
+  "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/enhance.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
